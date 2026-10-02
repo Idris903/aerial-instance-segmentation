@@ -1,0 +1,14 @@
+# dataset and model weights
+data/
+*.pt
+*.pth
+
+# secrets and keys
+.env
+*.pem
+access_token
+kaggle.json
+
+# Python and Jupyter clutter
+__pycache__/
+.ipynb_checkpoints/
