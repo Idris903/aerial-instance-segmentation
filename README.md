@@ -1,6 +1,6 @@
 # Aerial Instance Segmentation
 
-A CenterNet-style object detector for aerial imagery, built from scratch in PyTorch and trained on the iSAID dataset. The plan is to extend it with a mask head for instance segmentation.
+A CenterNet-style object detector for aerial imagery, built from scratch in PyTorch for the iSAID dataset. The plan is to extend it with a mask head for instance segmentation.
 
 **Status: in progress.** The detector network is built and tested. The data pipeline is in progress. The model has not been trained yet, so there are no results so far.
 
