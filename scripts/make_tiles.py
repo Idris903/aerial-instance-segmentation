@@ -50,8 +50,9 @@ val_ids = get_img_id(val_coco)
 
 val_out = tile_split(val_ids, val_coco, val_annotations, val_images_folder, os.path.join(out_path, "val"), skip_empty = False)
 
-
-    
+print("train:", len(train_out["images"]), len(train_out["annotations"]))
+print("holdout:", len(holdout_out["images"]), len(holdout_out["annotations"]))
+print("val:", len(val_out["images"]), len(val_out["annotations"]))    
     
 
 
