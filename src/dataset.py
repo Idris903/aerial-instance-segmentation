@@ -9,6 +9,7 @@ from torch.utils.data import Dataset
 from tiling import group_annotations
 from targets import build_targets
 from torchvision.transforms.functional import pil_to_tensor
+from torchvision.transforms.functional import convert_image_dtype
 
 class Tile_Dataset(Dataset):
     def __init__(self, folder):
@@ -30,6 +31,29 @@ class Tile_Dataset(Dataset):
         
         path = os.path.join(self.folder, self.tiles[index]["file_name"])
         img= Image.open(path).convert("RGB")
-        return pil_to_tensor(img) 
+        img = convert_image_dtype(pil_to_tensor(img), dtype= torch.float32)
+    
+        tile_id  = self.tiles[index]["id"]
+        
+        target_anns = self.annotations_by_tile.get(tile_id, [])
+            
+        np_targets = build_targets(target_anns)
+        
+        tensor_targets = []
+        for target in np_targets:
+            tensor_targets.append(torch.from_numpy(target))
+            
+        return img, {"heatmap" : tensor_targets[0], "size" : tensor_targets[1], "offset" : tensor_targets[2], "mask" : tensor_targets[3]}
+            
+            
+            
+            
+        
+        
+    
+    
+    
+
+     
     
     
