@@ -40,7 +40,7 @@ checkpoint_path = os.path.expanduser("~/checkpoint")
 os.makedirs(checkpoint_path, exist_ok= True)
 
 
-epochs = 2
+epochs = 50
 size_weight = 0.1
 offset_weight = 1
 
