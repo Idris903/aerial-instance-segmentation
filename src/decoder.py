@@ -28,12 +28,16 @@ def make_dims(top_k_score, top_k_postion, grid_size = 128*128, row_size = 128):
     
     return class_num, row, column
 
+
+
+
 def make_box(size, offset, col, row, score, class_num, stride = 4):
     
+    tile_value = []
     for img in range(size.shape[0]):
             
-        s_width = size[img, 0, row[img], col[img]]
-        s_height = size[img, 1, row[img],col[img]]
+        width = size[img, 0, row[img], col[img]]
+        height = size[img, 1, row[img],col[img]]
         
         off_x = offset[img,0,row[img],col[img]]
         off_y = offset[img,1,row[img],col[img]]
@@ -43,7 +47,7 @@ def make_box(size, offset, col, row, score, class_num, stride = 4):
         
         center = [cell_x , cell_y]
         
-        peak_size = [s_width, s_height]
+        peak_size = [width, height]
         
         scaled_size = [i * stride for i in peak_size]
         
@@ -51,12 +55,26 @@ def make_box(size, offset, col, row, score, class_num, stride = 4):
         
         top_left_x = scaled_center[0] - scaled_size[0] / 2
         top_left_y = scaled_center[1] - scaled_size[1] /2
+            
+        bbox = [top_left_x , top_left_y, scaled_size[0], scaled_size[1]]
         
-    bbox = [top_left_x , top_left_y, scaled_size[0], scaled_size[1]]
+        bboxes = torch.stack(bbox, dim= 1)
         
-    return {"bbox" : bbox[img],
-            "class" : class_num[img] + 1,
-            "score" : score[img]}
+        tile_value.append({"bbox" : bboxes,
+                           "class": class_num[img] + 1,
+                           "scores": score[img]})
+        
+    return tile_value
+                           
+       
+        
+        
+        
+        
+        
+        
+            
+      
 
    
     
