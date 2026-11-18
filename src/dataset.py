@@ -43,7 +43,12 @@ class Tile_Dataset(Dataset):
         for target in np_targets:
             tensor_targets.append(torch.from_numpy(target))
             
-        return img, {"heatmap" : tensor_targets[0], "size" : tensor_targets[1], "offset" : tensor_targets[2], "mask" : tensor_targets[3]}
+            
+        return img, {"heatmap" : tensor_targets[0],
+                     "size" : tensor_targets[1],
+                     "offset" : tensor_targets[2],
+                     "mask" : tensor_targets[3],
+                     "tile_id" : tile_id}
             
             
             
