@@ -65,6 +65,23 @@ def make_box(size, offset, col, row, score, class_num, stride = 4):
                            "scores": score[img]})
         
     return tile_value
+
+
+def whole_decode(heat, size, offset, k = 100):
+    
+    peak_map = decoder(heat)
+    
+    topk_scores, top_postions = top_k_peaks(peak_map, k)
+    
+    class_num, row, col = make_dims(topk_scores, top_postions)
+    
+    return make_box(size= size, offset= offset, col= col, row= row, score= topk_scores, class_num= class_num)
+    
+    
+    
+    
+    
+    
                            
        
         
